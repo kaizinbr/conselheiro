@@ -1,0 +1,59 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+* {
+    font-family: 'Space Grotesk', sans-serif;
+    color: #EFEDEE;
+    
+}
+body {
+    background-color: #131112;
+    min-height: 100%;
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    --texto-padrao: #efedee;
+    --fundo: #131112;
+    --vermelho: #FF4242;
+
+    /* CSS HEX */
+    --light-yellow: #fefee3ff;
+    --vivid-tangerine: #ffa093ff;
+    --tart-orange: #ff4242ff;
+    --auburn: #932f2cff;
+    --black-coral: #60656fff;
+    --smoky-black: #131112ff;
+    --op-white: #AFA5AA20;
+    --op-white-2: #AFA5AA40;
+
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+}
+
+h1{
+    font-size: 3rem;
+    color: var(--vermelho);
+}
+
+div.teste-de-fundo{
+    width: 90vw;
+    height: 40vh;
+    background-color: var(--op-white);
+    border-radius: 25px;
+    border: solid 1px var(--op-white-2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button{
+    background-color: var(--op-white);
+    cursor: pointer;
+}

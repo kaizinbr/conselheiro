@@ -1,0 +1,6 @@
+
+### GET
+GET https://api.adviceslip.com/advice
+
+### GET
+GET http://localhost:8080/conselho

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conselheiro</title>
+
+    <link href="style/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <header>
+        <!-- <figure>
+            <img class="logo" src="style/img/curriculo-maker-logo.svg" alt="Logo Currículo Maker">
+        </figure> -->
+    </header>
+    <section>
+        <div class="teste-de-fundo">
+
+            
+            <h1 class="conselho">Isso é um texto teste</h1>
+            <h2>Testando as cores pra ver qual fica melhor</h2>
+            <button onclick="pegaConselho()"> Clique aqui para receber um conselho
+                <!-- <a href="">AAAAAAA</a> -->
+            </button>
+        </div>
+    </section>
+
+    <footer></footer>
+
+<script>
+    async function pegaConselho(){
+        const url = 'https://api.adviceslip.com/advice';
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const conselho = document.querySelector('.conselho');
+        conselho.innerHTML = data.slip.advice;
+    }
+</script>
+  
+    <!-- <script type="module">
+				import Auth from './src/auth.js'
+				import Menu from './src/menu.js'
+
+				document.body.onload = Menu.startIndex
+        let curriculo = {
+                nome: '',
+                idade: '',
+                tel: '',
+                email: '',
+                pais: '',
+                estado: '',
+                cidade: '',
+                linkedin: '',
+                github: '',
+                habilidades: [{
+                    nome: '',
+                    nivel: ''
+                }, {
+                    nome: '',
+                    nivel: ''
+                }, {
+                    nome: '',
+                    nivel: ''
+                }, {
+                    nome: '',
+                    nivel: ''
+                }, {
+                    nome: '',
+                    nivel: ''
+                }],
+                nomeArea: '',
+                nomeEspecializacao: '',
+                nomeFormacao: '',
+                nivelFormacao: '',
+                nomeInstituicao: '',
+                periodoFormacao: '',
+                duracaoFormacao: '',
+                nomeEmpresa: '',
+                cargoExp: '',
+                periodoExp: '',
+                decricaoExp: '',
+                nomeCur: '',
+                duracaoCur: '',
+                tipoCur: '',
+                atividades_complementares: [{
+                    nome: '',
+                    duracao: '',
+                    tipo: '',
+                    atual: ''
+                }, {
+                    nome: '',
+                    duracao: '',
+                    tipo: '',
+                    atual: ''
+                }, {
+                    nome: '',
+                    duracao: '',
+                    tipo: '',
+                    atual: ''
+                }
+                ],
+
+
+            };
+			
+        // Prepara as informações como objeto JS
+        document.getElementById('formulario').addEventListener(
+            'submit', stopDefAction, false
+        );
+
+			// Prepara as informações como objeto JS
+			document.getElementById('formulario').onsubmit = saveInfos
+        async function saveInfos() {
+
+            const submitButton = document.getElementById('submit');
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  Loading...`
+
+            // Dados Pessoais
+            curriculo.nome = document.getElementById('name').value;
+            curriculo.idade = Number(document.getElementById('idade').value);
+            curriculo.tel = document.getElementById('telefone').value;
+            curriculo.email = document.getElementById('email').value;
+
+            curriculo.pais = document.getElementById('pais').value;
+            curriculo.estado = document.getElementById('estado').value;
+            curriculo.cidade = document.getElementById('cidade').value;
+
+            curriculo.linkedin = document.getElementById('linkedin').value;
+            curriculo.github = document.getElementById('github').value;
+
+            // Habilidades
+            getHabilidades();
+
+            curriculo.nomeArea = document.getElementById('area').value;
+            curriculo.nomeEspecializacao = document.getElementById('especi').value;
+
+            curriculo.nivelFormacao = document.getElementById('nivelgr').value,
+            curriculo.nomeFormacao = document.getElementById('nomegr').value,
+            curriculo.nomeInstituicao = document.getElementById('nomeInstituicao').value,
+            curriculo.periodoFormacao = document.getElementById('periodo').value,
+            curriculo.duracaoFormacao = document.getElementById('duracao').value
+
+
+            curriculo.nomeEmpresa = document.getElementById('nomeEmpresa').value,
+            curriculo.cargoExp = document.getElementById('cargo').value,
+            curriculo.periodoExp = document.getElementById('periodoEmpresa').value,
+            curriculo.descricaoExp = document.getElementById('desEmpresa').value
+
+            // Cursos
+            curriculo.nomeCur = document.getElementById('nCurso1').value
+            curriculo.duracaoCur = document.getElementById('dCurso1').value
+            curriculo.tipoCur = document.getElementById('tCurso1').value
+
+            getAtividades();
+
+            let lastID;
+
+            await fetch("/curriculum", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${Auth.getToken()}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(curriculo),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    lastID = data.id;
+                    console.log("Success:", data);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
+            createButton(lastID);
+            
+            submitButton.disabled = false;
+            submitButton.innerText = `Quero Criar Agora!`
+        }
+
+        function stopDefAction(evt) {
+            evt.preventDefault();
+        }
+
+        function createButton(lastID) {
+            const form = document.querySelector('form');
+
+          const buttonToCurriculum = document.getElementById('buttonToCurriculum');
+
+          if (buttonToCurriculum) {
+            buttonToCurriculum.remove()
+          }
+          
+            const button = `<div class="alert alert-success d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                <div>
+                  Currículo Criado! <a href="/curriculum?id=${lastID}" class="alert-link">Acesse aqui!</a>
+                </div>
+              </div>`
+            form.insertAdjacentHTML('beforeend', button);
+        }
+
+        function getHabilidades() {
+            for (let i = 0; i < curriculo.habilidades.length; i++) {
+                let habilidade = document.getElementById('nome_habil' + (i + 1)).value;
+
+
+                if (habilidade !== '') {
+                    curriculo.habilidades[i] = {
+                        nome: habilidade,
+                        nivel: document.getElementById('nivel_habil' + (i + 1)).value
+                    }
+                }
+            }
+        }
+
+
+
+        function getAtividades() {
+            for (let i = 0; i < curriculo.atividades_complementares.length; i++) {
+                let atividade = document.getElementById('nAtiv' + (i + 1)).value;
+
+
+                if (atividade !== '') {
+                    curriculo.atividades_complementares[i] = {
+                        nome: atividade,
+                        duracao: document.getElementById('dAtiv' + (i + 1)).value,
+                        tipo: document.getElementById('tAtiv' + (i + 1)).value,
+                        atual: document.getElementById('atualmente' + (i + 1)).value
+                    }
+                }
+            }
+        }
+
+        
+    </script> -->
+</body>
+
+
+</html>
